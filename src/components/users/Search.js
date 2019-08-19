@@ -1,47 +1,42 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-import PropTypes from 'prop-types';
+const Search = ({ searchUsers, setAlert }) => {
+  const [text, setText] = useState('');
 
-class Search extends Component {
-  state = {
-    text: ''
-  };
+  const onChange = e => setText(e.target.value);
 
-  static propTypes = {
-    searchUsers: PropTypes.func.isRequired,
-    setAlert: PropTypes.func.isRequired
-  };
-
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
-
-  onSubmit = e => {
+  const onSubmit = e => {
     e.preventDefault();
-    if (this.state.text === '')
-      this.props.setAlert('Please enter something to search', 'light');
-    else this.props.searchUsers(this.state.text);
+    if (text === '') setAlert('Please enter something to search', 'light');
+    else searchUsers(text);
   };
 
-  render() {
-    return (
-      <Form onSubmit={this.onSubmit} className='mb-3'>
-        <Form.Group controlId='formBasicEmail'>
-          <Form.Control
-            type='text'
-            name='text'
-            placeholder='Search Users'
-            value={this.state.text}
-            onChange={this.onChange}
-          />
-        </Form.Group>
+  return (
+    <Form onSubmit={onSubmit} className='mb-3'>
+      <Form.Group controlId='formBasicEmail'>
+        <Form.Control
+          type='text'
+          name='text'
+          placeholder='Search Users'
+          value={text}
+          onChange={onChange}
+        />
+      </Form.Group>
 
-        <Button variant='secondary' type='submit' block>
-          Submit
-        </Button>
-      </Form>
-    );
-  }
-}
+      <Button variant='secondary' type='submit' block>
+        Submit
+      </Button>
+    </Form>
+  );
+};
+
+Search.propTypes = {
+  searchUsers: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired
+};
 
 export default Search;
