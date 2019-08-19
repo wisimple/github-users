@@ -5,6 +5,11 @@ import PropTypes from 'prop-types';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
+library.add(faUsers);
+
 const CustomNavbar = ({ title, icon }) => {
   return (
     <Navbar
@@ -15,7 +20,7 @@ const CustomNavbar = ({ title, icon }) => {
       sticky='top'
     >
       <Navbar.Brand as={Link} to='/'>
-        <i className={icon} /> {title}
+        <FontAwesomeIcon icon={icon} /> {title}
       </Navbar.Brand>
       <Navbar.Toggle aria-controls='responsive-navbar-nav' />
       <Navbar.Collapse id='responsive-navbar-nav'>
@@ -32,7 +37,7 @@ const CustomNavbar = ({ title, icon }) => {
 
 CustomNavbar.defaultProps = {
   title: 'Github Users',
-  icon: 'fab fa-github-square'
+  icon: 'users'
 };
 CustomNavbar.propTypes = {
   title: PropTypes.string.isRequired,

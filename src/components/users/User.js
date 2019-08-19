@@ -10,6 +10,11 @@ import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Repos from '../repos/Repos';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+library.add(faChevronLeft);
+
 class User extends Component {
   componentDidMount() {
     this.props.getUser(this.props.match.params.login);
@@ -45,7 +50,7 @@ class User extends Component {
           <Col>
             <Link to='/'>
               <Button variant='light'>
-                <i class='fas fa-chevron-left' /> Back
+                <FontAwesomeIcon icon='chevron-left' /> Back
               </Button>
             </Link>
           </Col>
