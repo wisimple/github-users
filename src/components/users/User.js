@@ -4,24 +4,26 @@ import PropTypes from 'prop-types';
 import CustomSpinner from '../layout/CustomSpinner';
 
 import Image from 'react-bootstrap/Image';
-import Jumbotron from 'react-bootstrap/Jumbotron';
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
+import Repos from '../repos/Repos';
 
 class User extends Component {
+  componentDidMount() {
+    this.props.getUser(this.props.match.params.login);
+    this.props.getUserRepos(this.props.match.params.login);
+  }
+
   static propTypes = {
     user: PropTypes.object.isRequired,
     loading: PropTypes.bool,
-    getUser: PropTypes.func.isRequired
+    getUser: PropTypes.func.isRequired,
+    getUserRepos: PropTypes.func.isRequired,
+    repos: PropTypes.array.isRequired
   };
 
-  componentDidMount() {
-    this.props.getUser(this.props.match.params.login);
-  }
   render() {
     const {
       login,
@@ -35,7 +37,7 @@ class User extends Component {
       blog,
       html_url
     } = this.props.user;
-    const { loading } = this.props;
+    const { loading, repos } = this.props;
     if (loading) return <CustomSpinner />;
     return (
       <Fragment>
@@ -71,16 +73,20 @@ class User extends Component {
             {blog && (
               <Fragment>
                 <strong>Blog: </strong>{' '}
-                <a href={blog} target='_blank'>
+                <a href={blog} target='_blank' rel='noopener noreferrer'>
                   {blog}
                 </a>
                 <br />
               </Fragment>
             )}
             <div className='my-2'>
-              <a href={html_url + '?tab=repositories'} target='_blank'>
+              <a
+                href={html_url + '?tab=repositories'}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <Badge variant='secondary'>
-                  {'Repositories ' + public_repos}
+                  {'Public repos: '} {public_repos}
                 </Badge>{' '}
               </a>
               {hireable ? (
@@ -92,6 +98,7 @@ class User extends Component {
             <Button
               href={html_url}
               target='_blank'
+              rel='noopener noreferrer'
               size='sm'
               variant='secondary'
             >
@@ -100,6 +107,8 @@ class User extends Component {
           </Col>
         </Row>
         <hr />
+        <h4>Repositories</h4>
+        <Repos repos={repos} />
       </Fragment>
     );
   }
