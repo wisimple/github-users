@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-
+import { Link } from 'react-router-dom';
 import CustomSpinner from '../layout/CustomSpinner';
 
 import Image from 'react-bootstrap/Image';
@@ -41,6 +41,15 @@ class User extends Component {
     if (loading) return <CustomSpinner />;
     return (
       <Fragment>
+        <Row>
+          <Col>
+            <Link to='/'>
+              <Button variant='light'>
+                <i class='fas fa-chevron-left' /> Back
+              </Button>
+            </Link>
+          </Col>
+        </Row>
         <Row className='text-center'>
           <Col>
             <Image src={avatar_url} style={{ width: '120px' }} rounded />

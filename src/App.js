@@ -9,6 +9,7 @@ import Alert from './components/layout/CustomAlert';
 
 import User from './components/users/User';
 import About from './components/pages/About';
+import Footer from './components/layout/Footer';
 
 class App extends Component {
   state = {
@@ -107,6 +108,7 @@ class App extends Component {
               />
             </Switch>
           </Container>
+          <Footer />
         </Fragment>
       </Router>
     );
