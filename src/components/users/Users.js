@@ -11,10 +11,11 @@ import CustomMessage from '../layout/CustomMessage';
 
 const Users = () => {
   const githubContext = useContext(GithubContext);
-  const { users, loading, setInitialUsers } = githubContext;
+  const { users, user, loading, setInitialUsers } = githubContext;
 
   useEffect(() => {
-    setInitialUsers();
+    if (Object.entries(user).length === 0 && user.constructor === Object)
+      setInitialUsers();
     // eslint-disable-next-line
   }, []);
 
