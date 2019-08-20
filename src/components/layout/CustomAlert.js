@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Alert from 'react-bootstrap/Alert';
 
-const CustomAlert = ({ alert }) => {
+import AlertContext from '../../context/alert/alertContext';
+
+const CustomAlert = () => {
+  const alertContext = useContext(AlertContext);
+  const { alert } = alertContext;
   return (
     alert !== null && (
       <Alert variant={alert.type}>

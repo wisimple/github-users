@@ -5,6 +5,11 @@ import * as moment from 'moment';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Badge from 'react-bootstrap/Badge';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+library.add(faStar);
+
 const RepoItem = ({ repo }) => {
   return (
     <ListGroup.Item
@@ -19,7 +24,7 @@ const RepoItem = ({ repo }) => {
         {moment(repo.created_at).format('DD-MMMM-YYYY')}
       </span>
       <Badge variant='success' style={{ float: 'right' }}>
-        <i className='fas fa-star' /> {repo.stargazers_count}
+        <FontAwesomeIcon icon='star' /> {repo.stargazers_count}
       </Badge>
     </ListGroup.Item>
   );

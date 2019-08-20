@@ -1,6 +1,8 @@
-import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+
+import GithubContext from '../../context/github/githubContext';
+
 import CustomSpinner from '../layout/CustomSpinner';
 
 import Image from 'react-bootstrap/Image';
@@ -15,7 +17,18 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 library.add(faChevronLeft);
 
-const User = ({ user, getUser, getUserRepos, repos, loading, match }) => {
+const User = ({ match }) => {
+  const githubContext = useContext(GithubContext);
+
+  const {
+    user,
+    loading,
+    getUser,
+    getUserRepos,
+    repos,
+    reposLoading
+  } = githubContext;
+
   useEffect(() => {
     getUser(match.params.login);
     getUserRepos(match.params.login);
@@ -113,17 +126,9 @@ const User = ({ user, getUser, getUserRepos, repos, loading, match }) => {
       </Row>
       <hr />
       <h4>Repositories</h4>
-      <Repos repos={repos} />
+      <Repos repos={repos} loading={reposLoading} />
     </Fragment>
   );
-};
-
-User.propTypes = {
-  user: PropTypes.object.isRequired,
-  loading: PropTypes.bool,
-  getUser: PropTypes.func.isRequired,
-  getUserRepos: PropTypes.func.isRequired,
-  repos: PropTypes.array.isRequired
 };
 
 export default User;
