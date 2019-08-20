@@ -3,8 +3,10 @@ import {
   SET_LOADING,
   SET_INITIAL_USERS,
   GET_USER,
+  GET_USER_ERROR,
   SET_REPOS_LOADING,
-  GET_REPOS
+  GET_REPOS,
+  GET_REPOS_ERROR
 } from '../types';
 
 export default (state, action) => {
@@ -21,8 +23,12 @@ export default (state, action) => {
       return { ...state, users: action.payload, loading: false };
     case GET_USER:
       return { ...state, user: action.payload, loading: false };
+    case GET_USER_ERROR:
+      return { ...state, loading: false };
     case GET_REPOS:
       return { ...state, repos: action.payload, reposLoading: false };
+    case GET_REPOS_ERROR:
+      return { ...state, reposLoading: false };
     default:
       return state;
   }

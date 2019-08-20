@@ -7,8 +7,10 @@ import {
   SEARCH_USERS,
   GET_REPOS,
   GET_USER,
+  GET_USER_ERROR,
   SET_LOADING,
-  SET_REPOS_LOADING
+  SET_REPOS_LOADING,
+  GET_REPOS_ERROR
 } from '../types';
 
 const GithubState = props => {
@@ -52,26 +54,34 @@ const GithubState = props => {
   const getUser = async username => {
     setLoading();
 
-    const res = await axios.get(
-      `https://api.github.com/users/${username}?client_id=${
-        process.env.REACT_APP_GITHUB_CLIENT_ID
-      }&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-    );
+    try {
+      const res = await axios.get(
+        `https://api.github.com/users/${username}?client_id=${
+          process.env.REACT_APP_GITHUB_CLIENT_ID
+        }&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      );
 
-    dispacth({ type: GET_USER, payload: res.data });
+      dispacth({ type: GET_USER, payload: res.data });
+    } catch (error) {
+      dispacth({ type: GET_USER_ERROR });
+    }
   };
 
   // Get Repos
   const getUserRepos = async username => {
     setReposLoading();
 
-    const res = await axios.get(
-      `https://api.github.com/users/${username}/repos?sort=created:asc&client_id=${
-        process.env.REACT_APP_GITHUB_CLIENT_ID
-      }&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-    );
+    try {
+      const res = await axios.get(
+        `https://api.github.com/users/${username}/repos?sort=created:asc&client_id=${
+          process.env.REACT_APP_GITHUB_CLIENT_ID
+        }&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      );
 
-    dispacth({ type: GET_REPOS, payload: res.data });
+      dispacth({ type: GET_REPOS, payload: res.data });
+    } catch (error) {
+      dispacth({ type: GET_REPOS_ERROR });
+    }
   };
 
   // Set Loading

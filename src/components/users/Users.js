@@ -7,6 +7,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import CustomSpinner from '../layout/CustomSpinner';
 
+import CustomMessage from '../layout/CustomMessage';
+
 const Users = () => {
   const githubContext = useContext(GithubContext);
   const { users, loading, setInitialUsers } = githubContext;
@@ -17,12 +19,7 @@ const Users = () => {
   }, []);
 
   if (loading) return <CustomSpinner />;
-  if (users.length === 0)
-    return (
-      <div className='text-center'>
-        <span>No user found</span>
-      </div>
-    );
+  if (users.length === 0) return <CustomMessage msg='User not found' />;
   return (
     <Row>
       {users.map(user => (

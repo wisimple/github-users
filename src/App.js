@@ -6,13 +6,13 @@ import AlertState from './context/alert/AlertState';
 
 import CustomNavbar from './components/layout/CustomNavbar';
 import Container from 'react-bootstrap/Container';
-import Users from './components/users/Users';
-import Search from './components/users/Search';
 import Alert from './components/layout/CustomAlert';
 
 import User from './components/users/User';
 import About from './components/pages/About';
 import Footer from './components/layout/Footer';
+import Home from './components/pages/Home';
+import NotFound from './components/pages/NotFound';
 
 const App = () => {
   return (
@@ -24,22 +24,10 @@ const App = () => {
             <Container className='pt-3'>
               <Alert />
               <Switch>
-                <Route
-                  exact
-                  path='/'
-                  component={props => (
-                    <Fragment>
-                      <Search />
-                      <Users />
-                    </Fragment>
-                  )}
-                />
+                <Route exact path='/' component={Home} />
                 <Route exact path='/about' component={About} />
-                <Route
-                  exact
-                  path='/user/:login'
-                  render={props => <User {...props} />}
-                />
+                <Route exact path='/user/:login' component={User} />
+                <Route component={NotFound} />
               </Switch>
             </Container>
             <Footer />

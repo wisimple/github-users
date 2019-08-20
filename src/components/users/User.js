@@ -15,6 +15,7 @@ import Repos from '../repos/Repos';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import CustomMessage from '../layout/CustomMessage';
 library.add(faChevronLeft);
 
 const User = ({ match }) => {
@@ -48,6 +49,8 @@ const User = ({ match }) => {
     html_url
   } = user;
   if (loading) return <CustomSpinner />;
+  if (Object.entries(user).length === 0 && user.constructor === Object)
+    return <CustomMessage msg='User not found' />;
   return (
     <Fragment>
       <Row>

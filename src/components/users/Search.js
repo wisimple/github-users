@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
 
 import GithubContext from '../../context/github/githubContext';
 import AlertContext from '../../context/alert/alertContext';
@@ -7,7 +6,7 @@ import AlertContext from '../../context/alert/alertContext';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const Search = ({ setAlert }) => {
+const Search = () => {
   const githubContext = useContext(GithubContext);
   const alertContext = useContext(AlertContext);
 
@@ -39,10 +38,6 @@ const Search = ({ setAlert }) => {
       </Button>
     </Form>
   );
-};
-
-Search.propTypes = {
-  setAlert: PropTypes.func.isRequired
 };
 
 export default Search;
