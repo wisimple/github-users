@@ -1,5 +1,5 @@
 This is a react app all about github users.
-React hooks(useState, useEffect, useContext, useReducer)
+React hooks(useState, useEffect, useContext, useReducer),
 Context API
 
 # Installation
