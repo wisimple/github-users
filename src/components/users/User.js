@@ -5,10 +5,8 @@ import GithubContext from '../../context/github/githubContext';
 
 import CustomSpinner from '../layout/CustomSpinner';
 
-import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Repos from '../repos/Repos';
 
@@ -16,6 +14,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import CustomMessage from '../layout/CustomMessage';
+import UserSummary from './UserSummary';
+import UserChart from './UserChart';
 library.add(faChevronLeft);
 
 const User = ({ match }) => {
@@ -36,18 +36,6 @@ const User = ({ match }) => {
     // eslint-disable-next-line
   }, []);
 
-  const {
-    login,
-    avatar_url,
-    bio,
-    hireable,
-    name,
-    public_repos,
-    email,
-    company,
-    blog,
-    html_url
-  } = user;
   if (loading) return <CustomSpinner />;
   if (Object.entries(user).length === 0 && user.constructor === Object)
     return <CustomMessage msg='User not found' />;
@@ -62,69 +50,12 @@ const User = ({ match }) => {
           </Link>
         </Col>
       </Row>
-      <Row className='text-center'>
+      <Row>
         <Col>
-          <Image src={avatar_url} style={{ width: '120px' }} rounded />
-          <br />
-          <span>{login}</span>
+          <UserSummary user={user} />
         </Col>
-      </Row>
-      <Row className='text-center'>
         <Col>
-          <h2>{name}</h2>
-          {bio && (
-            <Fragment>
-              <span>{bio}</span>
-              <br />
-            </Fragment>
-          )}
-          {email && (
-            <Fragment>
-              <strong>Email: </strong>
-              <a href={'mailto:' + email}>{email}</a>
-              <br />
-            </Fragment>
-          )}
-          {company && (
-            <Fragment>
-              <strong>Company: </strong> {company}
-              <br />
-            </Fragment>
-          )}
-          {blog && (
-            <Fragment>
-              <strong>Blog: </strong>{' '}
-              <a href={blog} target='_blank' rel='noopener noreferrer'>
-                {blog}
-              </a>
-              <br />
-            </Fragment>
-          )}
-          <div className='my-2'>
-            <a
-              href={html_url + '?tab=repositories'}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <Badge variant='secondary'>
-                {'Public repos: '} {public_repos}
-              </Badge>{' '}
-            </a>
-            {hireable ? (
-              <Badge variant='success'>Hireable</Badge>
-            ) : (
-              <Badge variant='warning'>Not Hierable</Badge>
-            )}
-          </div>
-          <Button
-            href={html_url}
-            target='_blank'
-            rel='noopener noreferrer'
-            size='sm'
-            variant='secondary'
-          >
-            Visit Github Profile
-          </Button>
+          <UserChart repos={repos} loading={reposLoading} />
         </Col>
       </Row>
       <hr />
